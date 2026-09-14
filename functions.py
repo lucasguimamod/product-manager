@@ -24,3 +24,22 @@ def show_products(products):
                   f'Quantidade: {product['amount']}\n'
                   f'Categoria: {product['category']}\n'
                   f'{'-' * 30}')
+
+def menu(products):
+    while True:
+        user = int(input(f'{'=' * 30}\n'
+                         f'{'GERENCIADOR DE PRODUTOS'.center(30)}\n'
+                         f'{'=' * 30}\n'
+                         f'\n'
+                         f'1 - Cadastrar produto\n'
+                         f'2 - Listar produto(s)\n'
+                         f'0 - Sair\n'
+                         f'\n'
+                         f'Escolha uma opção: '))
+
+        if user == 1:
+            add_product(products)
+        elif user == 2:
+            show_products(products)
+        elif user == 0:
+            break
