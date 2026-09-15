@@ -25,6 +25,29 @@ def show_products(products):
                   f'Categoria: {product['category']}\n'
                   f'{'-' * 30}')
 
+def remove_product(products):
+    user = int(input('1 - Remover pelo id\n'
+                     '2 - Remover pelo nome\n'
+                     '0 - Voltar ao menu\n'
+                     'Escolha: '))
+    found = False
+    if user == 1:
+        id_user = int(input('Digite o id do produto a ser removido: '))
+        for product in products:
+            if id_user == product['id']:
+                found = True
+                products.remove(product)
+    elif user == 2:
+        name_user = str(input('Digite o nome do produto a ser removido: ')).upper().strip()
+        for product in products:
+            if name_user == product['name'].upper():
+                found = True
+                products.remove(product)
+    elif user == 0:
+        return
+    if not found:
+        print('Produto não encontrado!')
+
 def menu(products):
     while True:
         user = int(input(f'{'=' * 30}\n'
@@ -33,6 +56,7 @@ def menu(products):
                          f'\n'
                          f'1 - Cadastrar produto\n'
                          f'2 - Listar produto(s)\n'
+                         f'3 - Remover produto\n'
                          f'0 - Sair\n'
                          f'\n'
                          f'Escolha uma opção: '))
@@ -41,5 +65,7 @@ def menu(products):
             add_product(products)
         elif user == 2:
             show_products(products)
+        elif user == 3:
+            remove_product(products)
         elif user == 0:
             break
