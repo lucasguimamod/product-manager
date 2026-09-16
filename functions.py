@@ -48,6 +48,36 @@ def remove_product(products):
     if not found:
         print('Produto não encontrado!')
 
+def update_product(products):
+        user = int(input('1 - Atualizar pelo id\n'
+                     '2 - Atualizar pelo nome\n'
+                     '0 - Voltar ao menu\n'
+                     'Escolha: '))
+    found = False
+    if user == 1:
+        id_user = int(input('Digite o id do produto a ser atualizado: '))
+    elif user == 2:
+        name_user = str(input('Digite o nome do produto a ser atualizado: ')).upper().strip()
+    elif user == 0:
+        return
+    for product in products:
+        if user == 1:
+            if id_user == product['id']:
+                found = True
+                break
+        if user == 2:
+            if name_user == product['name'].upper():
+                found = True
+                break
+    if found:
+        product['name'] = str(input('Digite o nome atualizado do produto: '))
+        product['price'] = float(input('Digite o preço atualizado do produto: '))
+        product['amount'] = int(input('Digite a quantidade atualizada do produto: '))
+        product['category'] = str(input('Digite a categoria atualizada do produto: '))
+    
+    if not found:
+        print('Produto não encontrado!')
+
 def menu(products):
     while True:
         user = int(input(f'{'=' * 30}\n'
