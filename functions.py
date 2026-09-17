@@ -49,10 +49,10 @@ def remove_product(products):
         print('Produto não encontrado!')
 
 def update_product(products):
-        user = int(input('1 - Atualizar pelo id\n'
-                     '2 - Atualizar pelo nome\n'
-                     '0 - Voltar ao menu\n'
-                     'Escolha: '))
+    user = int(input('1 - Atualizar pelo id\n'
+                    '2 - Atualizar pelo nome\n'
+                    '0 - Voltar ao menu\n'
+                    'Escolha: '))
     found = False
     if user == 1:
         id_user = int(input('Digite o id do produto a ser atualizado: '))
@@ -78,6 +78,50 @@ def update_product(products):
     if not found:
         print('Produto não encontrado!')
 
+def search_product(products):
+    print('=' * 30)
+    print('BUSCAR PRODUTO'.center(30))
+    print('=' * 30)
+    print('\n')
+    user = int(input('1 - Buscar pelo ID\n' \
+    '2 - Buscar pelo nome\n' \
+    '3 - Buscar pela categoria\n' \
+    '0 - Voltar\n' \
+    '\n' \
+    'Escolha: '))
+    found1 = False
+    found2 = False
+    found3 = False
+    category_found = []
+    if user == 1:
+        id_user = int(input('Digite o id do produto a ser pesquisado: '))
+    elif user == 2:
+        name_user = str(input('Digite o nome do produto a ser pesquisado: ')).upper().strip()
+    elif user == 3:
+         category_user = str(input('Digite o nome da categoria a ser pesquisada: ')).upper().strip()
+    elif user == 0:
+        return
+    for product in products:
+        if user == 1:
+            if id_user == product['id']:
+                found1 = True
+                break
+        elif user == 2:
+            if name_user == product['name'].upper().strip():
+                found2 = True
+                break
+        elif user == 3:
+            if category_user == product['category'].upper().strip():
+                found3 = True
+                category_found.append(product)
+    if found1 or found2:
+        print(f'Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}')
+    elif found3:
+        for product in category_found:
+            print(f'Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}')
+    elif not found1 and not found2 and not found3:
+        print('Produto não encontrado!')
+
 def menu(products):
     while True:
         user = int(input(f'{'=' * 30}\n'
@@ -86,7 +130,8 @@ def menu(products):
                          f'\n'
                          f'1 - Cadastrar produto\n'
                          f'2 - Listar produto(s)\n'
-                         f'3 - Remover produto\n'
+                         f'3 - Buscar produto\n'
+                         f'4 - Remover produto\n'
                          f'0 - Sair\n'
                          f'\n'
                          f'Escolha uma opção: '))
@@ -96,6 +141,8 @@ def menu(products):
         elif user == 2:
             show_products(products)
         elif user == 3:
+            search_product(products)
+        elif user == 4:
             remove_product(products)
         elif user == 0:
             break
