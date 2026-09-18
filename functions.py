@@ -122,6 +122,38 @@ def search_product(products):
     elif not found1 and not found2 and not found3:
         print('Produto não encontrado!')
 
+def stock_report(products):
+    print('=' * 30)
+    print('RELATÓRIO DE ESTOQUE'.center(30))
+    print('=' * 30)
+    print('\n')
+
+    found = True
+    counter = 0
+    total_amount = 0
+    total_price = 0
+    if len(products) > 0:
+        max_amount = products[0]
+        min_amount = products[0]
+    else:
+        print('Não há produtos cadastrados!')
+        return
+    for product in products:
+        counter += 1
+        total_amount += product['amount']
+        total_price += product['price'] * product['amount']
+        if product['amount'] > max_amount['amount']:
+            max_amount = product
+        elif product['amount'] < min_amount['amount']:
+            min_amount = product
+    if found:
+        print(f'Produtos cadastrados: {counter}')
+        print(f'Quantidade total em estoque: {total_amount}')
+        print(f'Valor total do estoque: {total_price}')
+        print('\n\n')
+        print(f'Produto com maior estoque:\n{max_amount['name']} - {max_amount['amount']} unidades\n\n')
+        print(f'Produto com menor estoque:\n{min_amount['name']} - {min_amount['amount']} unidades')
+
 def menu(products):
     while True:
         user = int(input(f'{'=' * 30}\n'
