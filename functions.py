@@ -18,12 +18,12 @@ def show_products(products):
         return
     else:
         for product in products:
-            print(f'ID: {product['id']}\n'
-                  f'Nome: {product['name']}\n'
-                  f'Preço: {product['price']}\n'
-                  f'Quantidade: {product['amount']}\n'
-                  f'Categoria: {product['category']}\n'
-                  f'{'-' * 30}')
+            print(f"ID: {product['id']}\n"
+                f"Nome: {product['name']}\n"
+                f"Preço: {product['price']}\n"
+                f"Quantidade: {product['amount']}\n"
+                f"Categoria: {product['category']}\n"
+                f"{'-' * 30}")
 
 def remove_product(products):
     user = int(input('1 - Remover pelo id\n'
@@ -115,10 +115,10 @@ def search_product(products):
                 found3 = True
                 category_found.append(product)
     if found1 or found2:
-        print(f'Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}')
+        print(f"Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}")
     elif found3:
         for product in category_found:
-            print(f'Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}')
+            print(f"Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}")
     elif not found1 and not found2 and not found3:
         print('Produto não encontrado!')
 
@@ -151,22 +151,23 @@ def stock_report(products):
         print(f'Quantidade total em estoque: {total_amount}')
         print(f'Valor total do estoque: {total_price}')
         print('\n\n')
-        print(f'Produto com maior estoque:\n{max_amount['name']} - {max_amount['amount']} unidades\n\n')
-        print(f'Produto com menor estoque:\n{min_amount['name']} - {min_amount['amount']} unidades')
+        print(f"Produto com maior estoque:\n{max_amount['name']} - {max_amount['amount']} unidades\n\n")
+        print(f"Produto com menor estoque:\n{min_amount['name']} - {min_amount['amount']} unidades")
 
 def menu(products):
     while True:
-        user = int(input(f'{'=' * 30}\n'
-                         f'{'GERENCIADOR DE PRODUTOS'.center(30)}\n'
-                         f'{'=' * 30}\n'
-                         f'\n'
-                         f'1 - Cadastrar produto\n'
-                         f'2 - Listar produto(s)\n'
-                         f'3 - Buscar produto\n'
-                         f'4 - Remover produto\n'
-                         f'0 - Sair\n'
-                         f'\n'
-                         f'Escolha uma opção: '))
+        user = int(input(
+            '=' * 30 + '\n'
+            + 'GERENCIADOR DE PRODUTOS'.center(30) + '\n'
+            + '=' * 30 + '\n\n'
+            + '1 - Cadastrar produto\n'
+            + '2 - Listar produto(s)\n'
+            + '3 - Buscar produto\n'
+            + '4 - Remover produto\n'
+            + '5 - Relatório de estoque\n'
+            + '0 - Sair\n\n'
+            + 'Escolha uma opção: '
+        ))
 
         if user == 1:
             add_product(products)
@@ -176,5 +177,7 @@ def menu(products):
             search_product(products)
         elif user == 4:
             remove_product(products)
+        elif user == 5:
+            stock_report(products)
         elif user == 0:
             break
