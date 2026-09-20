@@ -154,6 +154,27 @@ def stock_report(products):
         print(f"Produto com maior estoque:\n{max_amount['name']} - {max_amount['amount']} unidades\n\n")
         print(f"Produto com menor estoque:\n{min_amount['name']} - {min_amount['amount']} unidades")
 
+def low_stock(products):
+    user = int(input('Digite o limite de estoque: '))
+    print('=' * 30)
+    print('ESTOQUE BAIXO'.center(30))
+    print('=' * 30)
+    print('\n')
+    print('Produtos com estoque baixo:\n' \
+    '\n')
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    found = False
+    for product in products:
+        if product['amount'] <= user:
+            print(f'ID {product['id']} | {product['name']} | {product['amount']} unidades\n'
+            '\n'
+            '-' * 30)
+            found = True
+    if not found:
+        print('Nenhum produto com estoque baixo!')
+
 def menu(products):
     while True:
         user = int(input(
@@ -165,6 +186,7 @@ def menu(products):
             + '3 - Buscar produto\n'
             + '4 - Remover produto\n'
             + '5 - Relatório de estoque\n'
+            + '6 - Verificar estoque por quantidade'
             + '0 - Sair\n\n'
             + 'Escolha uma opção: '
         ))
@@ -179,5 +201,7 @@ def menu(products):
             remove_product(products)
         elif user == 5:
             stock_report(products)
+        elif user == 6:
+            low_stock(products)
         elif user == 0:
             break
