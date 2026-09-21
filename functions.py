@@ -175,6 +175,24 @@ def low_stock(products):
     if not found:
         print('Nenhum produto com estoque baixo!')
 
+def sort_products(products):
+    user = int(input('Escolha a ordem\n' \
+    '1 - Menor -> Maior\n' \
+    '2 - Maior -> Menor\n' \
+    '0 - Voltar ao menu\n' \
+    'Escolha: '))
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    elif user == 0:
+        return
+    elif user == 1:
+        products = sorted(products, key=lambda product: product['price'])
+    elif user == 2:
+        products = sorted(products, key=lambda product: product['price'], reverse = True)
+    for product in products:
+        print(f'{product['name']} - R$ {product['price']}')
+
 def menu(products):
     while True:
         user = int(input(
@@ -187,7 +205,8 @@ def menu(products):
             + '4 - Remover produto\n'
             + '5 - Relatório de estoque\n'
             + '6 - Verificar estoque por quantidade'
-            + '0 - Sair\n\n'
+            + '7 - Ordenar produtos pelo valor\n'
+            + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
 
@@ -203,5 +222,7 @@ def menu(products):
             stock_report(products)
         elif user == 6:
             low_stock(products)
+        elif user == 7:
+            sort_products(products)
         elif user == 0:
             break
