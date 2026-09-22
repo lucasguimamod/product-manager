@@ -193,6 +193,23 @@ def sort_products(products):
     for product in products:
         print(f'{product['name']} - R$ {product['price']}')
 
+def product_value(products):
+    user = int(input('Digite o ID de um produto: '))
+    found = False
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    for product in products:
+        if user == product['id']:
+            print(f'Produto: {product['name']}\n'
+                  f'Preço unitário: R$ {product['price']}\n'
+                  f'Quantidade: {product['amount']}\n'
+                  f'Valor em estoque: R$ {product['price'] * product['amount']:.2f}')
+            found = True
+            break
+    if not found:
+        print('Produto não encontrado!')
+
 def menu(products):
     while True:
         user = int(input(
@@ -206,6 +223,7 @@ def menu(products):
             + '5 - Relatório de estoque\n'
             + '6 - Verificar estoque por quantidade'
             + '7 - Ordenar produtos pelo valor\n'
+            + '8 - Valor total de um produto\n'
             + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
@@ -224,5 +242,7 @@ def menu(products):
             low_stock(products)
         elif user == 7:
             sort_products(products)
+        elif user == 8:
+            product_value(products)
         elif user == 0:
             break
