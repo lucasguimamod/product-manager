@@ -227,6 +227,26 @@ def update_stock(products):
     if not found:
         print('Produto não encontrado!')
 
+def filter_price(products):
+    user1 = int(input('Preço mínimo: '))
+    user2 = int(input('Preço máximo: '))
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    print('=' * 30)
+    print('FILTRO DE PREÇO'.center(30))
+    print('=' * 30)
+    print('\n'
+    'Produtos encontrados:\n'
+    '\n')
+    found = False
+    for product in products:
+        if user1 <= product['price'] <= user2:
+            print(f'ID: {product['id']} | {product['name']} | R$ {product['price']:.2f}')
+            found = True
+    if not found:
+        print('Nenhum produto se encaixa no requisito!')
+
 def menu(products):
     while True:
         user = int(input(
@@ -242,6 +262,7 @@ def menu(products):
             + '7 - Ordenar produtos pelo valor\n'
             + '8 - Valor total de um produto\n'
             + '9 - Atualizar produto\n'
+            + '10 - Filtrar por faixa de preço\n'
             + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
@@ -264,5 +285,7 @@ def menu(products):
             product_value(products)
         elif user == 9:
             update_stock(products)
+        elif user == 10:
+            filter_price(products)
         elif user == 0:
             break
