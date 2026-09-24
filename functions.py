@@ -210,6 +210,23 @@ def product_value(products):
     if not found:
         print('Produto não encontrado!')
 
+def update_stock(products):
+    user = int(input('Digite o ID do produto a ser alterado: '))
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    found = False
+    for product in products:
+        if user == product['id']:
+            found = True
+            print(f'Quantidade atual: {product['amount']}')
+            new_amount = int(input('Digite a nova quantidade: '))
+            product['amount'] = new_amount
+            print('Produto atualizado!')
+            break
+    if not found:
+        print('Produto não encontrado!')
+
 def menu(products):
     while True:
         user = int(input(
@@ -224,6 +241,7 @@ def menu(products):
             + '6 - Verificar estoque por quantidade'
             + '7 - Ordenar produtos pelo valor\n'
             + '8 - Valor total de um produto\n'
+            + '9 - Atualizar produto\n'
             + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
@@ -244,5 +262,7 @@ def menu(products):
             sort_products(products)
         elif user == 8:
             product_value(products)
+        elif user == 9:
+            update_stock(products)
         elif user == 0:
             break
