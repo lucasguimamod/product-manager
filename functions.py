@@ -247,6 +247,28 @@ def filter_price(products):
     if not found:
         print('Nenhum produto se encaixa no requisito!')
 
+def summary(products):
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    print('=' * 30)
+    print('RESUMO'.center(30))
+    print('=' * 30)
+    print('\n')
+    products_stock = 0
+    products_not_stock = 0
+    amount_stock = 0
+    for product in products:
+        if product['amount'] > 0:
+            products_stock += 1
+        elif product['amount'] == 0:
+            products_not_stock += 1
+        amount_stock += product['amount']
+    print(f'Produtos cadastrados: {len(products)}')
+    print(f'Produtos com estoque: {products_stock}')
+    print(f'Produtos sem estoque: {products_not_stock}')
+    print(f'Quantidade total em estoque: {amount_stock}')
+
 def menu(products):
     while True:
         user = int(input(
@@ -263,6 +285,7 @@ def menu(products):
             + '8 - Valor total de um produto\n'
             + '9 - Atualizar produto\n'
             + '10 - Filtrar por faixa de preço\n'
+            + '11 - Resumo do estoque\n'
             + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
@@ -287,5 +310,7 @@ def menu(products):
             update_stock(products)
         elif user == 10:
             filter_price(products)
+        elif user == 1:
+            summary(products)
         elif user == 0:
             break
