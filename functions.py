@@ -269,6 +269,28 @@ def summary(products):
     print(f'Produtos sem estoque: {products_not_stock}')
     print(f'Quantidade total em estoque: {amount_stock}')
 
+def duplicate_product(products):
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    found = False
+    user = int(input('Digite o ID do produto a ser duplicado: '))
+    for item in products:
+        if user == item['id']:
+            found = True
+            product = {}
+            product['id'] = int(input('Digite o id do novo produto: '))
+            product['name'] = str(input('Digite o nome do novo produto: '))
+            product['price'] = item['price']
+            product['amount'] = item['amount']
+            product['category'] = item['category']
+            products.append(product)
+            break
+    if found:
+        print('Produto duplicado com sucesso!')
+    if not found:
+        print('Produto não encontrado!')
+
 def menu(products):
     while True:
         user = int(input(
@@ -280,12 +302,13 @@ def menu(products):
             + '3 - Buscar produto\n'
             + '4 - Remover produto\n'
             + '5 - Relatório de estoque\n'
-            + '6 - Verificar estoque por quantidade'
+            + '6 - Verificar estoque por quantidade\n'
             + '7 - Ordenar produtos pelo valor\n'
             + '8 - Valor total de um produto\n'
             + '9 - Atualizar produto\n'
             + '10 - Filtrar por faixa de preço\n'
             + '11 - Resumo do estoque\n'
+            + '12 - Duplicar produto já existente\n'
             + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
@@ -310,7 +333,9 @@ def menu(products):
             update_stock(products)
         elif user == 10:
             filter_price(products)
-        elif user == 1:
+        elif user == 11:
             summary(products)
+        elif user == 12:
+            duplicate_product(products)
         elif user == 0:
             break
