@@ -291,51 +291,70 @@ def duplicate_product(products):
     if not found:
         print('Produto não encontrado!')
 
+def product_menu(products):
+    while True:
+        print('=' * 30)
+        print('MENU DE PRODUTOS'.center(30))
+        print('=' * 30)
+        print('\n')
+        user = int(input('1 - Cadastrar produto\n' \
+        '2 - Listar produtos\n' \
+        '3 - Atualizar produto\n' \
+        '4 - Remover produto\n' \
+        '5 - Duplicar produto\n' \
+        '0 - Voltar ao menu inicial\n' \
+        'Escolha: '))
+        if user == 1:
+            add_product(products)
+        elif user == 2:
+            show_products(products)
+        elif user == 3:
+            update_product(products)
+        elif user == 4:
+            remove_product(products)
+        elif user == 5:
+            duplicate_product(products)
+        elif user == 0:
+            break
+        else:
+            print('Opção inválida! Tente novamente!')
+
 def menu(products):
     while True:
         user = int(input(
             '=' * 30 + '\n'
             + 'GERENCIADOR DE PRODUTOS'.center(30) + '\n'
             + '=' * 30 + '\n\n'
-            + '1 - Cadastrar produto\n'
-            + '2 - Listar produto(s)\n'
-            + '3 - Buscar produto\n'
-            + '4 - Remover produto\n'
-            + '5 - Relatório de estoque\n'
-            + '6 - Verificar estoque por quantidade\n'
-            + '7 - Ordenar produtos pelo valor\n'
-            + '8 - Valor total de um produto\n'
-            + '9 - Atualizar produto\n'
-            + '10 - Filtrar por faixa de preço\n'
-            + '11 - Resumo do estoque\n'
-            + '12 - Duplicar produto já existente\n'
+            + '1 - Menu de produtos\n'
+            + '2 - Buscar produto\n'
+            + '3 - Relatório de estoque\n'
+            + '4 - Verificar estoque por quantidade\n'
+            + '5 - Ordenar produtos pelo valor\n'
+            + '6 - Valor total de um produto\n'
+            + '7 - Atualizar produto\n'
+            + '8 - Filtrar por faixa de preço\n'
+            + '9 - Resumo do estoque\n'
             + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
 
         if user == 1:
-            add_product(products)
+            product_menu(products)
         elif user == 2:
-            show_products(products)
-        elif user == 3:
             search_product(products)
-        elif user == 4:
-            remove_product(products)
-        elif user == 5:
+        elif user == 3:
             stock_report(products)
-        elif user == 6:
+        elif user == 4:
             low_stock(products)
-        elif user == 7:
+        elif user == 5:
             sort_products(products)
-        elif user == 8:
+        elif user == 6:
             product_value(products)
-        elif user == 9:
+        elif user == 7:
             update_stock(products)
-        elif user == 10:
+        elif user == 8:
             filter_price(products)
-        elif user == 11:
+        elif user == 9:
             summary(products)
-        elif user == 12:
-            duplicate_product(products)
         elif user == 0:
             break
