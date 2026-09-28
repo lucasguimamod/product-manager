@@ -319,6 +319,28 @@ def product_menu(products):
         else:
             print('Opção inválida! Tente novamente!')
 
+def query_menu(products):
+    while True:
+        print('=' * 30)
+        print('MENU DE CONSULTAS'.center(30))
+        print('=' * 30)
+        print('\n')
+        user = int(input('1 - Buscar produto\n' \
+        '2 - Ordenar produtos pelo valor\n' \
+        '3 - Filtrar por faixa de preço\n' \
+        '0 - Voltar ao menu inicial\n' \
+        'Escolha: '))
+        if user == 1:
+            search_product(products)
+        elif user == 2:
+            sort_products(products)
+        elif user == 3:
+            filter_price(products)
+        elif user == 0:
+            break
+        else:
+            print('Opção indisponível, tente novamente!')
+
 def menu(products):
     while True:
         user = int(input(
@@ -326,14 +348,12 @@ def menu(products):
             + 'GERENCIADOR DE PRODUTOS'.center(30) + '\n'
             + '=' * 30 + '\n\n'
             + '1 - Menu de produtos\n'
-            + '2 - Buscar produto\n'
+            + '2 - Consultas\n'
             + '3 - Relatório de estoque\n'
             + '4 - Verificar estoque por quantidade\n'
-            + '5 - Ordenar produtos pelo valor\n'
-            + '6 - Valor total de um produto\n'
-            + '7 - Atualizar produto\n'
-            + '8 - Filtrar por faixa de preço\n'
-            + '9 - Resumo do estoque\n'
+            + '5 - Valor total de um produto\n'
+            + '6 - Atualizar produto\n'
+            + '7 - Resumo do estoque\n'
             + '0 - Sair\n'
             + 'Escolha uma opção: '
         ))
@@ -341,20 +361,16 @@ def menu(products):
         if user == 1:
             product_menu(products)
         elif user == 2:
-            search_product(products)
+            query_menu(products)
         elif user == 3:
             stock_report(products)
         elif user == 4:
             low_stock(products)
         elif user == 5:
-            sort_products(products)
-        elif user == 6:
             product_value(products)
-        elif user == 7:
+        elif user == 6:
             update_stock(products)
-        elif user == 8:
-            filter_price(products)
-        elif user == 9:
+        elif user == 7:
             summary(products)
         elif user == 0:
             break
