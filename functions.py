@@ -297,26 +297,29 @@ def product_menu(products):
         print('MENU DE PRODUTOS'.center(30))
         print('=' * 30)
         print('\n')
-        user = int(input('1 - Cadastrar produto\n' \
-        '2 - Listar produtos\n' \
-        '3 - Atualizar produto\n' \
-        '4 - Remover produto\n' \
-        '5 - Duplicar produto\n' \
-        '0 - Voltar ao menu inicial\n' \
-        'Escolha: '))
-        if user == 1:
-            add_product(products)
-        elif user == 2:
-            show_products(products)
-        elif user == 3:
-            update_product(products)
-        elif user == 4:
-            remove_product(products)
-        elif user == 5:
-            duplicate_product(products)
-        elif user == 0:
-            break
-        else:
+        try:
+            user = int(input('1 - Cadastrar produto\n' \
+            '2 - Listar produtos\n' \
+            '3 - Atualizar produto\n' \
+            '4 - Remover produto\n' \
+            '5 - Duplicar produto\n' \
+            '0 - Voltar ao menu inicial\n' \
+            'Escolha: '))
+            if user == 1:
+                add_product(products)
+            elif user == 2:
+                show_products(products)
+            elif user == 3:
+                update_product(products)
+            elif user == 4:
+                remove_product(products)
+            elif user == 5:
+                duplicate_product(products)
+            elif user == 0:
+                break
+            else:
+                print('Opção indisponível, tente novamente!')
+        except ValueError:
             print('Opção inválida! Tente novamente!')
 
 def query_menu(products):
@@ -325,21 +328,24 @@ def query_menu(products):
         print('MENU DE CONSULTAS'.center(30))
         print('=' * 30)
         print('\n')
-        user = int(input('1 - Buscar produto\n' \
-        '2 - Ordenar produtos pelo valor\n' \
-        '3 - Filtrar por faixa de preço\n' \
-        '0 - Voltar ao menu inicial\n' \
-        'Escolha: '))
-        if user == 1:
-            search_product(products)
-        elif user == 2:
-            sort_products(products)
-        elif user == 3:
-            filter_price(products)
-        elif user == 0:
-            break
-        else:
-            print('Opção indisponível, tente novamente!')
+        try:
+            user = int(input('1 - Buscar produto\n' \
+            '2 - Ordenar produtos pelo valor\n' \
+            '3 - Filtrar por faixa de preço\n' \
+            '0 - Voltar ao menu inicial\n' \
+            'Escolha: '))
+            if user == 1:
+                search_product(products)
+            elif user == 2:
+                sort_products(products)
+            elif user == 3:
+                filter_price(products)
+            elif user == 0:
+                break
+            else:
+                print('Opção indisponível, tente novamente!')
+        except ValueError:
+            print('Opção inválida! Tente novamente!')
 
 def stock_menu(products):
     while True:
@@ -347,46 +353,55 @@ def stock_menu(products):
         print('MENU DE ESTOQUE'.center(30))
         print('=' * 30)
         print('\n')
-        user = int(input('1 - Relatório de estoque\n' \
-        '2 - Verificar estoque por quantidade\n' \
-        '3 - Valor total de um produto\n' \
-        '4 - Atualizar quantidade\n' \
-        '5 - Resumo do estoque\n' \
-        '0 - Voltar ao menu inicial\n' \
-        'Escolha: '))
-        if user == 1:
-            stock_report(products)
-        elif user == 2:
-            low_stock(products)
-        elif user == 3:
-            product_value(products)
-        elif user == 4:
-            update_stock(products)
-        elif user == 5:
-            summary(products)
-        elif user == 0:
-            break
-        else:
+        try:
+            user = int(input('1 - Relatório de estoque\n' \
+            '2 - Verificar estoque por quantidade\n' \
+            '3 - Valor total de um produto\n' \
+            '4 - Atualizar quantidade\n' \
+            '5 - Resumo do estoque\n' \
+            '0 - Voltar ao menu inicial\n' \
+            'Escolha: '))
+            if user == 1:
+                stock_report(products)
+            elif user == 2:
+                low_stock(products)
+            elif user == 3:
+                product_value(products)
+            elif user == 4:
+                update_stock(products)
+            elif user == 5:
+                summary(products)
+            elif user == 0:
+                break
+            else:
+                print('Opção indisponível, tente novamente!')
+        except ValueError:
             print('Opção inválida! Tente novamente!')
 
 def menu(products):
     while True:
-        user = int(input(
-            '=' * 30 + '\n'
-            + 'GERENCIADOR DE PRODUTOS'.center(30) + '\n'
-            + '=' * 30 + '\n\n'
-            + '1 - Menu de produtos\n'
-            + '2 - Menu de consultas\n'
-            + '3 - Menu de estoque\n'
-            + '0 - Sair\n'
-            + 'Escolha uma opção: '
-        ))
+        try:
+            user = int(input(
+                '=' * 30 + '\n'
+                + 'GERENCIADOR DE PRODUTOS'.center(30) + '\n'
+                + '=' * 30 + '\n\n'
+                + '1 - Menu de produtos\n'
+                + '2 - Menu de consultas\n'
+                + '3 - Menu de estoque\n'
+                + '0 - Sair\n'
+                + 'Escolha uma opção: '
+            ))
 
-        if user == 1:
-            product_menu(products)
-        elif user == 2:
-            query_menu(products)
-        elif user == 3:
-            stock_menu(products)
-        elif user == 0:
-            break
+            if user == 1:
+                product_menu(products)
+            elif user == 2:
+                query_menu(products)
+            elif user == 3:
+                stock_menu(products)
+            elif user == 0:
+                break
+            else:
+                print('Opção inválida!')
+        except ValueError:
+            print('Opção inválida! Tente novamente!\n' \
+            '\n')
