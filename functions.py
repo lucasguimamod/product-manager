@@ -46,27 +46,44 @@ def show_products(products):
                 f"{'-' * 30}")
 
 def remove_product(products):
-    user = int(input('1 - Remover pelo id\n'
-                     '2 - Remover pelo nome\n'
-                     '0 - Voltar ao menu\n'
-                     'Escolha: '))
-    found = False
-    if user == 1:
-        id_user = int(input('Digite o id do produto a ser removido: '))
-        for product in products:
-            if id_user == product['id']:
-                found = True
-                products.remove(product)
-    elif user == 2:
-        name_user = str(input('Digite o nome do produto a ser removido: ')).upper().strip()
-        for product in products:
-            if name_user == product['name'].upper():
-                found = True
-                products.remove(product)
-    elif user == 0:
-        return
-    if not found:
-        print('Produto não encontrado!')
+    while True:
+        while True:
+            try:
+                user = int(input('1 - Remover pelo id\n'
+                                '2 - Remover pelo nome\n'
+                                '0 - Voltar ao menu\n'
+                                'Escolha: '))
+            except ValueError:
+                print('Opção indisponível! Tente novamente!')
+                continue
+            break
+        found = False
+        if user == 1:
+            while True:
+                try:
+                        id_user = int(input('Digite o id do produto a ser removido: '))
+                        for product in products:
+                            if id_user == product['id']:
+                                found = True
+                                products.remove(product)
+                except ValueError:
+                    print('Tipo de entrada inválido! Tente novamente!')
+                    continue
+                break
+        elif user == 2:
+            name_user = str(input('Digite o nome do produto a ser removido: ')).upper().strip()
+            for product in products:
+                if name_user == product['name'].upper():
+                    found = True
+                    products.remove(product)
+        elif user == 0:
+            return
+        if user < 0 or user > 2:
+            print('Opção indisponível! Tente novamente!')
+            continue
+        if not found:
+            print('Produto não encontrado!')
+            break
 
 def update_product(products):
     user = int(input('1 - Atualizar pelo id\n'
