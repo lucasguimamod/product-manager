@@ -86,34 +86,64 @@ def remove_product(products):
             break
 
 def update_product(products):
-    user = int(input('1 - Atualizar pelo id\n'
-                    '2 - Atualizar pelo nome\n'
-                    '0 - Voltar ao menu\n'
-                    'Escolha: '))
-    found = False
-    if user == 1:
-        id_user = int(input('Digite o id do produto a ser atualizado: '))
-    elif user == 2:
-        name_user = str(input('Digite o nome do produto a ser atualizado: ')).upper().strip()
-    elif user == 0:
-        return
-    for product in products:
+    while True:
+        while True:
+            try:
+                user = int(input('1 - Atualizar pelo id\n'
+                                '2 - Atualizar pelo nome\n'
+                                '0 - Voltar ao menu\n'
+                                'Escolha: '))
+                break
+            except ValueError:
+                print('Tipo de entrada inválida! Tente novamente!')
+                continue
+        found = False
         if user == 1:
-            if id_user == product['id']:
-                found = True
+            while True:
+                try:
+                    id_user = int(input('Digite o id do produto a ser atualizado: '))
+                    break
+                except ValueError:
+                    print('Tipo de entrada inválida! Tente novamente!')
+                    continue
+        elif user == 2:
+            name_user = str(input('Digite o nome do produto a ser atualizado: ')).upper().strip()
+        elif user == 0:
+            return
+        elif user < 0 or user > 2:
+            print('Opção indisponível! Tente novamente!')
+            continue
+        for product in products:
+            if user == 1:
+                if id_user == product['id']:
+                    found = True
+                    break
+            if user == 2:
+                if name_user == product['name'].upper():
+                    found = True
+                    break
+        if found:
+            while True:
+                product['name'] = str(input('Digite o nome atualizado do produto: '))
+                while True:
+                    try:
+                        product['price'] = float(input('Digite o preço atualizado do produto: '))
+                        break
+                    except ValueError:
+                        print('Tipo de entrada inválida! Tente novamente!')
+                        continue
+                while True:
+                    try:
+                        product['amount'] = int(input('Digite a quantidade atualizada do produto: '))
+                        break
+                    except ValueError:
+                        print('Tipo de entrada inválida! Tente novamente!')
+                        continue
+                product['category'] = str(input('Digite a categoria atualizada do produto: '))
                 break
-        if user == 2:
-            if name_user == product['name'].upper():
-                found = True
-                break
-    if found:
-        product['name'] = str(input('Digite o nome atualizado do produto: '))
-        product['price'] = float(input('Digite o preço atualizado do produto: '))
-        product['amount'] = int(input('Digite a quantidade atualizada do produto: '))
-        product['category'] = str(input('Digite a categoria atualizada do produto: '))
-    
-    if not found:
-        print('Produto não encontrado!')
+        if not found:
+            print('Produto não encontrado!')
+            break
 
 def search_product(products):
     print('=' * 30)
