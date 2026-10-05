@@ -146,48 +146,67 @@ def update_product(products):
             break
 
 def search_product(products):
-    print('=' * 30)
-    print('BUSCAR PRODUTO'.center(30))
-    print('=' * 30)
-    print('\n')
-    user = int(input('1 - Buscar pelo ID\n' \
-    '2 - Buscar pelo nome\n' \
-    '3 - Buscar pela categoria\n' \
-    '0 - Voltar\n' \
-    '\n' \
-    'Escolha: '))
-    found1 = False
-    found2 = False
-    found3 = False
-    category_found = []
-    if user == 1:
-        id_user = int(input('Digite o id do produto a ser pesquisado: '))
-    elif user == 2:
-        name_user = str(input('Digite o nome do produto a ser pesquisado: ')).upper().strip()
-    elif user == 3:
-         category_user = str(input('Digite o nome da categoria a ser pesquisada: ')).upper().strip()
-    elif user == 0:
-        return
-    for product in products:
+    while True:
+        while True:
+            try:
+                print('=' * 30)
+                print('BUSCAR PRODUTO'.center(30))
+                print('=' * 30)
+                print('\n')
+                user = int(input('1 - Buscar pelo ID\n' \
+                '2 - Buscar pelo nome\n' \
+                '3 - Buscar pela categoria\n' \
+                '0 - Voltar\n' \
+                '\n' \
+                'Escolha: '))
+                break
+            except ValueError:
+                print('Tipo de entrada inválida! Tente novamente!')
+                continue
+        found1 = False
+        found2 = False
+        found3 = False
+        category_found = []
         if user == 1:
-            if id_user == product['id']:
-                found1 = True
-                break
+            while True:
+                try:
+                    id_user = int(input('Digite o id do produto a ser pesquisado: '))
+                    break
+                except ValueError:
+                    print('Tipo de entrada inválida! Tente novamente!')
+                    continue
         elif user == 2:
-            if name_user == product['name'].upper().strip():
-                found2 = True
-                break
+            name_user = str(input('Digite o nome do produto a ser pesquisado: ')).upper().strip()
         elif user == 3:
-            if category_user == product['category'].upper().strip():
-                found3 = True
-                category_found.append(product)
-    if found1 or found2:
-        print(f"Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}")
-    elif found3:
-        for product in category_found:
+            category_user = str(input('Digite o nome da categoria a ser pesquisada: ')).upper().strip()
+        elif user == 0:
+            return
+        elif user < 0 or user > 3:
+            print('Opção indisponível! Tente novamente!')
+            continue
+        for product in products:
+            if user == 1:
+                if id_user == product['id']:
+                    found1 = True
+                    break
+            elif user == 2:
+                if name_user == product['name'].upper().strip():
+                    found2 = True
+                    break
+            elif user == 3:
+                if category_user == product['category'].upper().strip():
+                    found3 = True
+                    category_found.append(product)
+        if found1 or found2:
             print(f"Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}")
-    elif not found1 and not found2 and not found3:
-        print('Produto não encontrado!')
+            break
+        elif found3:
+            for product in category_found:
+                print(f"Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}")
+            break
+        elif not found1 and not found2 and not found3:
+            print('Produto não encontrado!')
+            break
 
 def stock_report(products):
     print('=' * 30)
