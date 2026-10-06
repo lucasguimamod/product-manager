@@ -241,25 +241,35 @@ def stock_report(products):
         print(f"Produto com menor estoque:\n{min_amount['name']} - {min_amount['amount']} unidades")
 
 def low_stock(products):
-    user = int(input('Digite o limite de estoque: '))
-    print('=' * 30)
-    print('ESTOQUE BAIXO'.center(30))
-    print('=' * 30)
-    print('\n')
-    print('Produtos com estoque baixo:\n' \
-    '\n')
-    if len(products) == 0:
-        print('Não há produtos cadastrados!')
-        return
-    found = False
-    for product in products:
-        if product['amount'] <= user:
-            print(f'ID {product['id']} | {product['name']} | {product['amount']} unidades\n'
-            '\n'
-            '-' * 30)
-            found = True
-    if not found:
-        print('Nenhum produto com estoque baixo!')
+    while True:
+        while true:
+            try:
+                user = int(input('Digite o limite de estoque: '))
+                print('=' * 30)
+                print('ESTOQUE BAIXO'.center(30))
+                print('=' * 30)
+                print('\n')
+                print('Produtos com estoque baixo:\n' \
+                '\n')
+                break
+            except ValueError:
+                print('Tipo de entrada inválida! Tente novamente!')
+                continue
+        if len(products) == 0:
+            print('Não há produtos cadastrados!')
+            break
+        found = False
+        for product in products:
+            if product['amount'] <= user:
+                print(f'ID {product['id']} | {product['name']} | {product['amount']} unidades\n'
+                '\n'
+                '-' * 30)
+                found = True
+        if found:
+            break
+        if not found:
+            print('Nenhum produto com estoque baixo!')
+            break
 
 def sort_products(products):
     user = int(input('Escolha a ordem\n' \
