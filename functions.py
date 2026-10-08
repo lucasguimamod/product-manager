@@ -290,7 +290,13 @@ def sort_products(products):
         print(f'{product['name']} - R$ {product['price']}')
 
 def product_value(products):
-    user = int(input('Digite o ID de um produto: '))
+    while True:
+        try:
+            user = int(input('Digite o ID de um produto: '))
+            break
+        except ValueError:
+            print('Tipo de entrada inválida! Tente novamente!')
+            continue
     found = False
     if len(products) == 0:
         print('Não há produtos cadastrados!')
