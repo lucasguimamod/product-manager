@@ -242,7 +242,7 @@ def stock_report(products):
 
 def low_stock(products):
     while True:
-        while true:
+        while True:
             try:
                 user = int(input('Digite o limite de estoque: '))
                 print('=' * 30)
@@ -272,11 +272,17 @@ def low_stock(products):
             break
 
 def sort_products(products):
-    user = int(input('Escolha a ordem\n' \
-    '1 - Menor -> Maior\n' \
-    '2 - Maior -> Menor\n' \
-    '0 - Voltar ao menu\n' \
-    'Escolha: '))
+    while True:
+        try:
+            user = int(input('Escolha a ordem\n' \
+            '1 - Menor -> Maior\n' \
+            '2 - Maior -> Menor\n' \
+            '0 - Voltar ao menu\n' \
+            'Escolha: '))
+            break
+        except ValueError:
+            print('Tipo de entrada inválida! Tente novamente!')
+            continue
     if len(products) == 0:
         print('Não há produtos cadastrados!')
         return
@@ -284,10 +290,14 @@ def sort_products(products):
         return
     elif user == 1:
         products = sorted(products, key=lambda product: product['price'])
+        for product in products:
+                print(f'{product['name']} - R$ {product['price']}')
     elif user == 2:
         products = sorted(products, key=lambda product: product['price'], reverse = True)
-    for product in products:
-        print(f'{product['name']} - R$ {product['price']}')
+        for product in products:
+                print(f'{product['name']} - R$ {product['price']}')
+    else:
+        print('Opção inválida! Tente novamente!')
 
 def product_value(products):
     while True:
