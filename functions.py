@@ -351,8 +351,24 @@ def update_stock(products):
         print('Produto não encontrado!')
 
 def filter_price(products):
-    user1 = int(input('Preço mínimo: '))
-    user2 = int(input('Preço máximo: '))
+    while True:
+        try:
+            user1 = float(input('Preço mínimo: '))
+            break
+        except ValueError:
+            print('Tipo de entrada inválida! Tente novamente!')
+            continue
+    while True:
+        try:
+            user2 = float(input('Preço máximo: '))
+            if user1 > user2:
+                print('Preço mínimo maior que preço máximo! Tente novamente!')
+                continue
+            else:
+                break
+        except ValueError:
+            print('Tipo de entrada inválida! Tente novamente!')
+            continue
     if len(products) == 0:
         print('Não há produtos cadastrados!')
         return
