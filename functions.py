@@ -323,7 +323,13 @@ def product_value(products):
         print('Produto não encontrado!')
 
 def update_stock(products):
-    user = int(input('Digite o ID do produto a ser alterado: '))
+    while True:
+        try:
+            user = int(input('Digite o ID do produto a ser alterado: '))
+            break
+        except ValueError:
+            print('Tipo de entrada inválida! Tente novamente!')
+            continue
     if len(products) == 0:
         print('Não há produtos cadastrados!')
         return
@@ -332,10 +338,15 @@ def update_stock(products):
         if user == product['id']:
             found = True
             print(f'Quantidade atual: {product['amount']}')
-            new_amount = int(input('Digite a nova quantidade: '))
-            product['amount'] = new_amount
-            print('Produto atualizado!')
-            break
+            while True:
+                try:
+                    new_amount = int(input('Digite a nova quantidade: '))
+                    product['amount'] = new_amount
+                    print('Produto atualizado!')
+                    break
+                except ValueError:
+                    print('Tipo de entrada inválida! Tente novamente!')
+                    continue
     if not found:
         print('Produto não encontrado!')
 
