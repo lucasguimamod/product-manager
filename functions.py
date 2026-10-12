@@ -14,17 +14,26 @@ def add_product(products):
         while True:
             try:
                 product['price'] = float(input('Digite o preço do produto: '))
+                if product['price'] < 0:
+                    print('Preço negativo inserido! Tente novamente!')
+                    continue
+                else:
+                    break
             except ValueError:
                 print('Opção inválida! Tente novamente!')
                 continue
-            break
         while True:
             try:
                 product['amount'] = int(input('Digite a quantidade do produto: '))
+                if product['amount'] < 0:
+                    print('Quantidade negativa inserida! Tente novamente!')
+                    continue
+                else:
+                    break
             except ValueError:
                 print('Opção inválida! Tente novamente!')
                 continue
-            break
+            
         product['category'] = str(input('Digite a categoria deste produto: '))
         products.append(product)
         break
