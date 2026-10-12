@@ -413,20 +413,41 @@ def duplicate_product(products):
         print('Não há produtos cadastrados!')
         return
     found = False
-    user = int(input('Digite o ID do produto a ser duplicado: '))
+    while True:
+        try:
+            user = int(input('Digite o ID do produto a ser duplicado: '))
+            break
+        except ValueError:
+            print('Tipo de entrada inválida! Tente novamente!')
     for item in products:
         if user == item['id']:
             found = True
             product = {}
-            product['id'] = int(input('Digite o id do novo produto: '))
-            product['name'] = str(input('Digite o nome do novo produto: '))
+            while True:
+                try:
+                    new_id = int(input('Digite o ID do novo produto: '))
+                    same = False
+                    for existing_product in products:
+                        if new_id == existing_product['id']:
+                            same = True
+                            break
+                    if same:
+                        print('ID já existente! Tente novamente!')
+                        continue
+                    product['id'] = new_id
+                    break
+                except ValueError:
+                    print('Tipo de entrada inválida! Tente novamente!')
+
+            product['name'] = input('Digite o nome do novo produto: ')
             product['price'] = item['price']
             product['amount'] = item['amount']
             product['category'] = item['category']
+
             products.append(product)
-            break
-    if found:
-        print('Produto duplicado com sucesso!')
+            print('Produto duplicado com sucesso!')
+            return
+
     if not found:
         print('Produto não encontrado!')
 
