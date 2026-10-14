@@ -146,14 +146,22 @@ def update_product(products):
                 while True:
                     try:
                         product['price'] = float(input('Digite o preço atualizado do produto: '))
-                        break
+                        if product['price'] < 0:
+                            print('Preço negativo inserido! Tente novamente!')
+                            continue
+                        else:
+                            break
                     except ValueError:
                         print('Tipo de entrada inválida! Tente novamente!')
                         continue
                 while True:
                     try:
                         product['amount'] = int(input('Digite a quantidade atualizada do produto: '))
-                        break
+                        if product['amount'] < 0:
+                            print('Quantidade negativa inserida! Tente novamente!')
+                            continue
+                        else:
+                            break
                     except ValueError:
                         print('Tipo de entrada inválida! Tente novamente!')
                         continue
