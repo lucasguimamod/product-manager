@@ -4,12 +4,21 @@ def add_product(products):
     product = {}
     while True:
         while True:
+            duplicate = False
             try:
                 product['id'] = int(input('Digite o id do produto: '))
             except ValueError:
                 print('Opção inválida! Tente novamente!')
                 continue
-            break
+            for items in products:
+                if product['id'] == items['id']:
+                    duplicate = True
+                    break
+            if duplicate:
+                print('Id já cadastrado! Tente novamente!')
+                continue
+            else:
+                break
         product['name'] = str(input('Digite o nome do produto: '))
         while True:
             try:
