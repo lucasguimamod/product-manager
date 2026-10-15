@@ -169,7 +169,7 @@ def update_product(products):
                 break
         if not found:
             print('Produto não encontrado!')
-            break
+            continue
 
 def search_product(products):
     while True:
