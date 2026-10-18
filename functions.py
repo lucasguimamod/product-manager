@@ -64,46 +64,48 @@ def show_products(products):
                 f"{'-' * 30}")
 
 def remove_product(products):
+    if len(products) == 0:
+            print('Não há produtos cadastrados!')
+            return
     while True:
         while True:
             try:
-                user = int(input('1 - Remover pelo id\n'
-                                '2 - Remover pelo nome\n'
-                                '0 - Voltar ao menu\n'
-                                'Escolha: '))
+                user = int(input('1 - Remover produto pelo ID\n' \
+                '0 - Voltar ao menu inicial\n' \
+                'Escolha: '))
             except ValueError:
                 print('Opção indisponível! Tente novamente!')
                 continue
             break
-        found = False
-        if user == 1:
-            while True:
-                try:
-                        id_user = int(input('Digite o id do produto a ser removido: '))
-                        for product in products:
-                            if id_user == product['id']:
-                                found = True
-                                products.remove(product)
-                except ValueError:
-                    print('Tipo de entrada inválido! Tente novamente!')
-                    continue
-                break
-        elif user == 2:
-            name_user = str(input('Digite o nome do produto a ser removido: ')).upper().strip()
-            for product in products:
-                if name_user == product['name'].upper():
-                    found = True
-                    products.remove(product)
-        elif user == 0:
+        if user == 0:
             return
-        if user < 0 or user > 2:
+        if user < 0 or user > 1:
             print('Opção indisponível! Tente novamente!')
             continue
+        found = False
+        while True:
+            try:
+                id_user = int(input('Digite o ID do produto a ser removido: '))
+                break
+            except ValueError:
+                print('Tipo de entrada inválida! Tente novamente!')
+                continue
+        for product in products:
+            if id_user == product['id']:
+                found = True
+                products.remove(product)
+                break
         if not found:
             print('Produto não encontrado!')
+            continue
+        if found:
+            print('Produto removido com sucesso!')
             break
 
 def update_product(products):
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
     while True:
         while True:
             try:
