@@ -174,7 +174,10 @@ def update_product(products):
             continue
 
 def search_product(products):
-    while True:
+    if len(products) == 0:
+                print('Não há produtos cadastrados!')
+                return
+    while True: 
         while True:
             try:
                 print('=' * 30)
@@ -209,7 +212,7 @@ def search_product(products):
             category_user = str(input('Digite o nome da categoria a ser pesquisada: ')).upper().strip()
         elif user == 0:
             return
-        elif user < 0 or user > 3:
+        else:
             print('Opção indisponível! Tente novamente!')
             continue
         for product in products:
@@ -227,14 +230,12 @@ def search_product(products):
                     category_found.append(product)
         if found1 or found2:
             print(f"Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}")
-            break
         elif found3:
             for product in category_found:
                 print(f"Id: {product['id']} | Nome: {product['name']} | Preço: {product['price']} | Quantidade: {product['amount']} | Categoria: {product['category']}")
-            break
         elif not found1 and not found2 and not found3:
             print('Produto não encontrado!')
-            break
+            continue
 
 def stock_report(products):
     print('=' * 30)
