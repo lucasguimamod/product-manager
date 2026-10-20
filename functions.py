@@ -352,32 +352,40 @@ def product_value(products):
         print('Produto não encontrado!')
 
 def update_stock(products):
-    while True:
-        try:
-            user = int(input('Digite o ID do produto a ser alterado: '))
-            break
-        except ValueError:
-            print('Tipo de entrada inválida! Tente novamente!')
-            continue
     if len(products) == 0:
         print('Não há produtos cadastrados!')
         return
-    found = False
-    for product in products:
-        if user == product['id']:
-            found = True
-            print(f'Quantidade atual: {product['amount']}')
-            while True:
-                try:
-                    new_amount = int(input('Digite a nova quantidade: '))
-                    product['amount'] = new_amount
-                    print('Produto atualizado!')
-                    break
-                except ValueError:
-                    print('Tipo de entrada inválida! Tente novamente!')
-                    continue
-    if not found:
-        print('Produto não encontrado!')
+    while True:
+        while True:
+            try:
+                user = int(input('Digite o ID do produto a ser alterado: '))
+                break
+            except ValueError:
+                print('Tipo de entrada inválida! Tente novamente!')
+                continue
+        found = False
+        for product in products:
+            if user == product['id']:
+                found = True
+                print(f'Quantidade atual: {product['amount']}')
+                while True:
+                    try:
+                        new_amount = int(input('Digite a nova quantidade: '))
+                        if new_amount < 0:
+                            print('Não é possível cadastrar uma quantidade negativa! Tente novamente!')
+                            continue
+                        else:
+                            product['amount'] = new_amount
+                            print('Produto atualizado!')
+                            break
+                    except ValueError:
+                        print('Tipo de entrada inválida! Tente novamente!')
+                        continue
+        if found:
+            break
+        if not found:
+            print('Produto não encontrado!')
+            continue
 
 def filter_price(products):
     while True:
