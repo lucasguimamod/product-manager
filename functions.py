@@ -329,27 +329,30 @@ def sort_products(products):
         print('Opção inválida! Tente novamente!')
 
 def product_value(products):
-    while True:
-        try:
-            user = int(input('Digite o ID de um produto: '))
-            break
-        except ValueError:
-            print('Tipo de entrada inválida! Tente novamente!')
-            continue
-    found = False
     if len(products) == 0:
         print('Não há produtos cadastrados!')
         return
-    for product in products:
-        if user == product['id']:
-            print(f'Produto: {product['name']}\n'
-                  f'Preço unitário: R$ {product['price']}\n'
-                  f'Quantidade: {product['amount']}\n'
-                  f'Valor em estoque: R$ {product['price'] * product['amount']:.2f}')
-            found = True
-            break
-    if not found:
-        print('Produto não encontrado!')
+    while True:
+        while True:
+            try:
+                user = int(input('Digite o ID de um produto: '))
+                break
+            except ValueError:
+                print('Tipo de entrada inválida! Tente novamente!')
+                continue
+        found = False
+        for product in products:
+            if user == product['id']:
+                print(f'Produto: {product['name']}\n'
+                    f'Preço unitário: R$ {product['price']}\n'
+                    f'Quantidade: {product['amount']}\n'
+                    f'Valor em estoque: R$ {product['price'] * product['amount']:.2f}')
+                found = True
+                break
+        if not found:
+            print('Produto não encontrado!')
+            continue
+        break
 
 def update_stock(products):
     while True:
