@@ -270,6 +270,9 @@ def stock_report(products):
         print(f"Produto com menor estoque:\n{min_amount['name']} - {min_amount['amount']} unidades")
 
 def low_stock(products):
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
     while True:
         while True:
             try:
@@ -284,9 +287,6 @@ def low_stock(products):
             except ValueError:
                 print('Tipo de entrada inválida! Tente novamente!')
                 continue
-        if len(products) == 0:
-            print('Não há produtos cadastrados!')
-            break
         found = False
         for product in products:
             if product['amount'] <= user:
@@ -301,6 +301,9 @@ def low_stock(products):
             break
 
 def sort_products(products):
+    if len(products) == 0:
+            print('Não há produtos cadastrados!')
+            return
     while True:
         try:
             user = int(input('Escolha a ordem\n' \
@@ -312,10 +315,7 @@ def sort_products(products):
         except ValueError:
             print('Tipo de entrada inválida! Tente novamente!')
             continue
-    if len(products) == 0:
-        print('Não há produtos cadastrados!')
-        return
-    elif user == 0:
+    if user == 0:
         return
     elif user == 1:
         products = sorted(products, key=lambda product: product['price'])
@@ -391,6 +391,9 @@ def update_stock(products):
             continue
 
 def filter_price(products):
+    if len(products) == 0:
+            print('Não há produtos cadastrados!')
+            return
     while True:
         try:
             user1 = float(input('Preço mínimo: '))
@@ -409,9 +412,6 @@ def filter_price(products):
         except ValueError:
             print('Tipo de entrada inválida! Tente novamente!')
             continue
-    if len(products) == 0:
-        print('Não há produtos cadastrados!')
-        return
     print('=' * 30)
     print('FILTRO DE PREÇO'.center(30))
     print('=' * 30)
