@@ -1,3 +1,5 @@
+import json
+
 products = []
 
 def add_product(products):
@@ -45,6 +47,7 @@ def add_product(products):
             
         product['category'] = str(input('Digite a categoria deste produto: '))
         products.append(product)
+        save_products(products)
         break
 
 def show_products(products):
@@ -94,6 +97,7 @@ def remove_product(products):
             if id_user == product['id']:
                 found = True
                 products.remove(product)
+                save_products(products)
                 break
         if not found:
             print('Produto não encontrado!')
@@ -168,6 +172,7 @@ def update_product(products):
                         print('Tipo de entrada inválida! Tente novamente!')
                         continue
                 product['category'] = str(input('Digite a categoria atualizada do produto: '))
+                save_products(products)
                 break
         if not found:
             print('Produto não encontrado!')
@@ -380,6 +385,7 @@ def update_stock(products):
                         else:
                             product['amount'] = new_amount
                             print('Produto atualizado!')
+                            save_products(products)
                             break
                     except ValueError:
                         print('Tipo de entrada inválida! Tente novamente!')
@@ -485,6 +491,7 @@ def duplicate_product(products):
             product['category'] = item['category']
 
             products.append(product)
+            save_products(products)
             print('Produto duplicado com sucesso!')
             return
 
@@ -578,6 +585,19 @@ def stock_menu(products):
         except ValueError:
             print('Opção inválida! Tente novamente!')
 
+def save_products(products):
+    with open('data.json', 'w') as file:
+        data = products
+        json.dump(data, file)
+
+def load_products():
+    try:
+        with open('data.json', 'r') as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        return []
+    
 def menu(products):
     while True:
         try:
