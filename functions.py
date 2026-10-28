@@ -1,6 +1,7 @@
 import json
 
 products = []
+movements = []
 
 def add_product(products):
     product = {}
@@ -359,7 +360,7 @@ def product_value(products):
             continue
         break
 
-def update_stock(products):
+def update_stock(products, movements):
     if len(products) == 0:
         print('Não há produtos cadastrados!')
         return
@@ -376,6 +377,7 @@ def update_stock(products):
             if user == product['id']:
                 found = True
                 print(f'Quantidade atual: {product['amount']}')
+                last_amount = product['amount']
                 while True:
                     try:
                         new_amount = int(input('Digite a nova quantidade: '))
@@ -386,11 +388,22 @@ def update_stock(products):
                             product['amount'] = new_amount
                             print('Produto atualizado!')
                             save_products(products)
+                            movement = {}
+                            movement['id'] = product['id']
+                            movement['name'] = product['name']
+                            movement['last_amount'] = last_amount
+                            movement['new_amount'] = new_amount
+                            movement['movement'] = new_amount - last_amount
+                            movements.append(movement)
                             break
                     except ValueError:
                         print('Tipo de entrada inválida! Tente novamente!')
                         continue
+                break
         if found:
+            print(f'Quantidade anterior: {last_amount}\n'
+                  f'Quantidade atualizada: {new_amount}\n'
+                  f'Movimentação: {new_amount - last_amount}')
             break
         if not found:
             print('Produto não encontrado!')
