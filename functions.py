@@ -510,6 +510,7 @@ def product_menu(products):
             '3 - Atualizar produto\n' \
             '4 - Remover produto\n' \
             '5 - Duplicar produto\n' \
+            '6 - Verificar produtos duplicados\n' \
             '0 - Voltar ao menu inicial\n' \
             'Escolha: '))
             if user == 1:
@@ -522,6 +523,8 @@ def product_menu(products):
                 remove_product(products)
             elif user == 5:
                 duplicate_product(products)
+            elif user == 6:
+                find_duplicate_products(products)
             elif user == 0:
                 break
             else:
@@ -598,6 +601,28 @@ def load_products():
     except FileNotFoundError:
         return []
     
+def find_duplicate_products(products):
+    duplicate_products = []
+    if len(products) == 0:
+        print('Não há produtos cadastrados!')
+        return
+    found = False
+    for index, item in enumerate(products):
+        for second_index, second_item in enumerate(products):
+            if second_index > index:
+                if item['id'] != second_item['id'] and item['name'].lower() == second_item['name'].lower():
+                    found = True
+                    if item not in duplicate_products:
+                        duplicate_products.append(item)
+                    if second_item not in duplicate_products:
+                        duplicate_products.append(second_item)
+    if found:
+        print('Produtos duplicados:')
+        for item in duplicate_products:
+            print(f'ID: {item['id']} | Nome: {item['name']}')
+    if not found:
+        print('Não foram encontrados produtos duplicados!')
+
 def menu(products):
     while True:
         try:
