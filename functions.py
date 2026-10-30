@@ -360,7 +360,8 @@ def product_value(products):
             continue
         break
 
-def update_stock(products, movements):
+def update_stock(products):
+    movements = load_movements()
     if len(products) == 0:
         print('Não há produtos cadastrados!')
         return
@@ -404,6 +405,7 @@ def update_stock(products, movements):
             print(f'Quantidade anterior: {last_amount}\n'
                   f'Quantidade atualizada: {new_amount}\n'
                   f'Movimentação: {new_amount - last_amount}')
+            save_movements(movements)
             break
         if not found:
             print('Produto não encontrado!')
@@ -635,6 +637,18 @@ def find_duplicate_products(products):
             print(f'ID: {item['id']} | Nome: {item['name']}')
     if not found:
         print('Não foram encontrados produtos duplicados!')
+
+def save_movements(movements):
+    with open('movementsdata.json', 'w') as file:
+        json.dump(movements, file)
+
+def load_movements():
+    try:
+        with open('movementsdata.json', 'r') as file:
+            data = json.load(file)
+            return data
+    except FileNotFoundError:
+        return []
 
 def menu(products):
     while True:
