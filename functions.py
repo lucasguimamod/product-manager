@@ -526,6 +526,7 @@ def product_menu(products):
             '4 - Remover produto\n' \
             '5 - Duplicar produto\n' \
             '6 - Verificar produtos duplicados\n' \
+            '7 - Consultar histórico de movimentações\n' \
             '0 - Voltar ao menu inicial\n' \
             'Escolha: '))
             if user == 1:
@@ -540,6 +541,8 @@ def product_menu(products):
                 duplicate_product(products)
             elif user == 6:
                 find_duplicate_products(products)
+            elif user == 7:
+                show_movements()
             elif user == 0:
                 break
             else:
@@ -649,6 +652,19 @@ def load_movements():
             return data
     except FileNotFoundError:
         return []
+
+def show_movements():
+    movements = load_movements()
+    if len(movements) == 0:
+        print('Não há histórico de movimentações!')
+        return
+    else:
+        for item in movements:
+            print(f'ID: {item['id']}\n'
+                  f'Nome: {item['name']}\n'
+                  f'Quantidade anterior: {item['last_amount']}\n'
+                  f'Nova quantidade: {item['new_amount']}\n'
+                  f'Diferença da movimentação: {item['movement']}')
 
 def menu(products):
     while True:
