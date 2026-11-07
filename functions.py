@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 products = []
 movements = []
@@ -386,6 +387,8 @@ def update_stock(products):
                             print('Não é possível cadastrar uma quantidade negativa! Tente novamente!')
                             continue
                         else:
+                            now = datetime.now()
+                            formatted_date = now.strftime('%d/%m/%Y %H:%M')
                             product['amount'] = new_amount
                             print('Produto atualizado!')
                             save_products(products)
@@ -395,6 +398,7 @@ def update_stock(products):
                             movement['last_amount'] = last_amount
                             movement['new_amount'] = new_amount
                             movement['movement'] = new_amount - last_amount
+                            movement['date_time'] = formatted_date
                             movements.append(movement)
                             break
                     except ValueError:
@@ -660,11 +664,13 @@ def show_movements():
         return
     else:
         for item in movements:
+            date_time = item.get('date_time', 'Data não registrada!')
             print(f'ID: {item['id']}\n'
                   f'Nome: {item['name']}\n'
                   f'Quantidade anterior: {item['last_amount']}\n'
                   f'Nova quantidade: {item['new_amount']}\n'
-                  f'Diferença da movimentação: {item['movement']}')
+                  f'Diferença da movimentação: {item['movement']}\n'
+                  f'Data: {date_time}')
 
 def menu(products):
     while True:
