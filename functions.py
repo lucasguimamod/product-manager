@@ -531,6 +531,7 @@ def product_menu(products):
             '5 - Duplicar produto\n' \
             '6 - Verificar produtos duplicados\n' \
             '7 - Consultar histórico de movimentações\n' \
+            '8 - Consultar movimentações por produto\n' \
             '0 - Voltar ao menu inicial\n' \
             'Escolha: '))
             if user == 1:
@@ -547,6 +548,8 @@ def product_menu(products):
                 find_duplicate_products(products)
             elif user == 7:
                 show_movements()
+            elif user == 8:
+                filter_movements()
             elif user == 0:
                 break
             else:
@@ -672,6 +675,26 @@ def show_movements():
                   f'Diferença da movimentação: {item['movement']}\n'
                   f'Data: {date_time}')
 
+def filter_movements():
+    movements = load_movements()
+    found = False
+    if len(movements) == 0:
+        print('Não há histórico de movimentações!')
+        return
+    else:
+        try:
+            user = int(input('Digite o ID do produto: '))
+            for item in movements:
+                if user == item['id']:
+                    found = True
+                    date_time = item.get('date_time', 'Data não registrada!')
+                    print(f'ID: {item['id']}\nNome: {item['name']}\nQuantidade anterior: {item['last_amount']}\nNova quantidade: {item['new_amount']}\nDiferença: {item['movement']}\nData: {date_time}')
+        except ValueError:
+            print('Tipo de entrada inválida! Tente novamente!')
+    if not found:
+        print('Produto não encontrado!')
+        return
+    
 def menu(products):
     while True:
         try:
